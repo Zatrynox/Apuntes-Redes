@@ -255,4 +255,13 @@ El **gateway (1ª IP útil) es fijo**, siempre le toca a la interfaz del router 
 Lo que **sí es aleatorio** es la IP que le pones a cada PC: puede ser cualquiera dentro del rango útil restante de esa subred (después de la .1 del gateway), mientras no se repita con otra PC de la misma red y no se salga del rango útil (ni la IP de red ni el broadcast). Ahí ya no hay una regla de "cuál PC lleva cuál IP".
 
 ---
+
+**Mi desarrollo: Final**
+
+Las PCs solo se comunican entre las subredes conectadas a un mismo router, no hay conexión entre subredes de routers diferentes. Por eso ingreso al apartado de **STATIC**, de un router, y lleno **Network** con el ID de la subred completa a la que mi router quiere llegar (o sea, las subredes del otro router — donde están las IPs de las PCs del otro lado (las que están en un rango de IPs util y escogí para ser IPs de las PCs) ). Además, en **Mask**, al ser un FLSM, lo lleno igual que todos (misma máscara en todas las rutas). Pero el **Next Hop** es la IP serial del otro router, el que sí tiene esa red conectada directamente.
+
+Esto no es "trampa" ni hardcoding en mal sentido: todo router necesita sí o sí una tabla de rutas para saber a dónde mandar cada paquete, y solo existen dos formas de dársela — **estática** (yo la escribo a mano, como aquí) o **dinámica** (protocolos como RIP, que se avisan solos). En un enlace punto a punto como este, entre solo 2 routers, la ruta estática es completamente válida y es justo lo que se usaría también en una red real.
+
+---
+
 > 💡 **Notita:** El truco rápido para el "salto" entre redes en subneteo es `256 - (último octeto de la máscara)`. Por ejemplo, con /26 (máscara .192), el salto es `256 - 192 = 64` → por eso las redes van de 64 en 64 (.0, .64, .128, .192). Te ahorra escribir todo el binario cuando ya tienes práctica.
