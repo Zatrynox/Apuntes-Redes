@@ -235,4 +235,24 @@ Primero calculo el valor de *"Divido con `a` bits de host"*, para elevar `2` a e
 | GENERICO3 | 172.23.69.224 | /27 | 255.255.255.224 | 172.23.69.225 | 172.23.69.254 | 172.23.69.255 |
 
 ---
+
+**Mi desarrollo: IPs de interfaz de router y enlace entre routers**
+
+En la topología de Cisco, cada nube (Ingeniería, Ventas, Marketing, Logística) es una subred distinta, y en cada una la **1ª IP útil le corresponde a la interfaz del router** que da hacia esa red (no al switch), porque esa IP es el **default gateway** que los PCs de esa subred van a usar. El switch trabaja en capa 2 y no necesita IP para que los PCs se comuniquen entre sí.
+
+Como hay 2 routers, cada uno tiene su propia interfaz hacia su propia subred — no compiten por "la" primera IP útil, porque cada subred es independiente y tiene su propia .1 útil.
+
+El enlace rojo entre Router y Router0 (el cable que los conecta entre sí) **también es una subred más**, la número 5, que en este ejercicio (con las 8 subredes iguales de /27 que ya teníamos) le toca ser la llamada "Interfaz": `172.23.69.128/27`, con 1ª útil `172.23.69.129` y última útil `172.23.69.158`.
+
+La diferencia con las demás subredes es que aquí no hay switch ni varios PCs, solo los 2 routers hablándose directo. Por eso, **quién se queda con la primera IP útil (.129) y quién con la segunda (.130) es arbitrario** — no hay una convención de "izquierda = primera IP". Lo único que importa es que ambos routers usen una IP dentro del rango útil de esa subred, que no se repitan entre sí, y que ambos tengan la misma máscara (/27) configurada.
+
+**Sobre la máscara y las IPs de las PCs:**
+
+Para todas las PCs de una misma subred, la **máscara es la misma** (en este ejercicio, `255.255.255.224` / `/27`, porque todas las subredes se hicieron iguales(FLSM)). Si en otro caso las subredes fueran de distinto tamaño (VLSM), ahí sí cada una tendría su propia máscara — pero aquí no aplica porque todas son `/27`.
+
+El **gateway (1ª IP útil) es fijo**, siempre le toca a la interfaz del router de esa subred, no es aleatorio.
+
+Lo que **sí es aleatorio** es la IP que le pones a cada PC: puede ser cualquiera dentro del rango útil restante de esa subred (después de la .1 del gateway), mientras no se repita con otra PC de la misma red y no se salga del rango útil (ni la IP de red ni el broadcast). Ahí ya no hay una regla de "cuál PC lleva cuál IP".
+
+---
 > 💡 **Notita:** El truco rápido para el "salto" entre redes en subneteo es `256 - (último octeto de la máscara)`. Por ejemplo, con /26 (máscara .192), el salto es `256 - 192 = 64` → por eso las redes van de 64 en 64 (.0, .64, .128, .192). Te ahorra escribir todo el binario cuando ya tienes práctica.
