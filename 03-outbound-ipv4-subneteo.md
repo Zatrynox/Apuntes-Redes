@@ -114,8 +114,12 @@ MASCARA: 255.255.11000000.00000000
 
 ID RED: 10.20.0.0/18
 
-primera red útil: 10.20.0.1 -> (10.20.0.0 no se toca)
-última red útil:  10.20.11000000.00000000 -> 10.20.63.254 -> broadcast: .255
+-en el 3° octeto de la red solo hay 6 bits de host, o sea de que como máximo puede tener 64(0-63) valores
+-en el 4° octeto de la red hay 8 bits de host, o sea de que como máximo puede tener 256(0-255) valores
+*OJO: NO HABLAMOS DE VALORES UTILES O NO, SINO DE USABLES*
+
+primera RED útil: 10.20.0.1 -> (10.20.0.0 no se toca)
+última RED útil:  10.20.(00)000000.00000000 -> 10.20.63.254 -> broadcast: .255
 ```
 
 > **La red nunca se toca.**
@@ -131,14 +135,14 @@ primera red útil: 10.20.0.1 -> (10.20.0.0 no se toca)
 
 | Red | ID | /N | Máscara | 1ª útil | última útil | broadcast |
 |---|---|---|---|---|---|---|
-| RED1 | 192.168.10.0 | /26 | 255.255.255.0 | 192.168.10.1 | 192.168.10.62 | 192.168.10.63 |
-| RED2 | 192.168.10.64 | /26 | 255.255.255.0 | 192.168.10.65 | 192.168.10.126 | 192.168.10.127 |
-| RED3 | 192.168.10.128 | /26 | 255.255.255.0 | 192.168.10.129 | 192.168.10.190 | 192.168.10.191 |
-| RED4 | 192.168.10.192 | /26 | 255.255.255.0 | 192.168.10.193 | 192.168.10.254 | 192.168.10.255 |
+| RED1 | 192.168.10.0 | /26 | 255.255.255.192 | 192.168.10.1 | 192.168.10.62 | 192.168.10.63 |
+| RED2 | 192.168.10.64 | /26 | 255.255.255.192 | 192.168.10.65 | 192.168.10.126 | 192.168.10.127 |
+| RED3 | 192.168.10.128 | /26 | 255.255.255.192 | 192.168.10.129 | 192.168.10.190 | 192.168.10.191 |
+| RED4 | 192.168.10.192 | /26 | 255.255.255.192 | 192.168.10.193 | 192.168.10.254 | 192.168.10.255 |
 
 ```
-¿Cuántos host? 2^N - 2
-¿Cuántos bits de host? N
+¿Cuántos host? 2^N - 2   = 62
+¿Cuántos bits de host? N = 6
 ```
 
 ### Problema 2: 172.16.0.0/22, 10 bits de host
@@ -148,19 +152,20 @@ La red más grande tiene 40 host.
 ```
 Qué valor se acerca más a esos bits (2^6 - 2) >= 40
 Tengo 10 bits, quiero 6 bits
-Divido con 10 - 6 = 4 bits de host
+Divido con 10 - 6 = 4 bits de host (cantidad de SUBredes que se pueden permutar)
 ```
 
 El problema pide las 5 primeras redes.
 
 > La red no se toca.
+> Solo permuto host.
 
 ```
-172.16.00000000.00000000
-172.16.00000000.01000000
-172.16.00000000.10000000
-172.16.00000000.11000000
-172.16.00000001.00000000
+172.16.000000-00.00000000
+172.16.000000-00.01000000
+172.16.000000-00.10000000
+172.16.000000-00.11000000
+172.16.000000-01.00000000
 ```
 
 ```
@@ -172,25 +177,26 @@ El problema pide las 5 primeras redes.
 ```
 
 ```
-172.16.00000001.01000000
-172.16.00000001.10000000
-172.16.00000001.11000000
-172.16.00000010.00000000
-172.16.00000010.01000000
-172.16.00000010.10000000
-172.16.00000010.11000000
-172.16.00000011.00000000
-172.16.00000011.01000000
-172.16.00000011.10000000
-172.16.00000011.11000000
+172.16.000000-01.01000000
+172.16.000000-01.10000000
+172.16.000000-01.11000000
+172.16.000000-10.00000000
+172.16.000000-10.01000000
+172.16.000000-10.10000000
+172.16.000000-10.11000000
+172.16.000000-11.00000000
+172.16.000000-11.01000000
+172.16.000000-11.10000000
+172.16.000000-11.11000000
 ```
+> "-" separa red de host, "." separa por octetos.
 
 ### Ejercicio: 172.23.69.0/24
-
+![Ejercicio 2](image/exercice2.jpeg)
 Hay 8 bits host, el host más grande es 30.
 
 ```
-Tengo 8 bits, quiero 5 bits (2^5 = 32 - 2)
+Tengo 8 bits, quiero 5 bits (2^5 = 32 - 2 >= 30)
 Divido con 3 bits de host (hay 2^3 redes)
 ```
 
@@ -209,16 +215,24 @@ Pide 4 redes.
 172.23.69.11100000
 ```
 
-| Área | ID Red | Máscara | 1ª IP útil |
-|---|---|---|---|
-| MARKETING | 172.23.69.0/24 | 255.255.255.0 | 172.23.69.1 |
-| INGENIERIA | 172.23.69.32/24 | 255.255.255.0 | 172.23.69.33 |
-| VENTAS | 172.23.69.64/24 | 255.255.255.0 | 172.23.69.65 |
-| LOGISTICA | 172.23.69.96/24 | 255.255.255.0 | 172.23.69.97 |
-| INTERFAZ | 172.23.69.128/24 | 255.255.255.0 | 172.23.69.129 |
-| GENERICO1 | 172.23.69.160/24 | 255.255.255.0 | 172.23.69.161 |
-| GENERICO2 | 172.23.69.192/24 | 255.255.255.0 | 172.23.69.193 |
-| GENERICO3 | 172.23.69.224/24 | 255.255.255.0 | 172.23.69.225 |
+**Mi desarrollo**
+ 
+Después de hacer el cálculo de bits con **"tengo, quiero y divido"**, uso la cantidad de *"Divido con `a` bits de host"* para que se sume al `/n_inicial`, dando un `/n_final`, que es la máscara de todas las subredes creadas — porque sí, este ejercicio es pedir `/n -> /k`, sin pedirlo directamente.
+ 
+Primero calculo el valor de *"Divido con `a` bits de host"*, para elevar `2` a ese número `a` y que nos den las subredes totales, permutando con `0` y `1` los primeros `a` bits de host, ya que pasarán a ser subredes. Luego lleno la tabla y listo — solo es cosa de que se creará un `/n_final` que debemos respetar en el problema.
+
+---
+
+| Área | ID Red | /N | Máscara | 1ª útil | última útil | broadcast |
+|---|---|---|---|---|---|---|
+| MARKETING | 172.23.69.0 | /27 | 255.255.255.224 | 172.23.69.1 | 172.23.69.30 | 172.23.69.31 |
+| INGENIERIA | 172.23.69.32 | /27 | 255.255.255.224 | 172.23.69.33 | 172.23.69.62 | 172.23.69.63 |
+| VENTAS | 172.23.69.64 | /27 | 255.255.255.224 | 172.23.69.65 | 172.23.69.94 | 172.23.69.95 |
+| LOGISTICA | 172.23.69.96 | /27 | 255.255.255.224 | 172.23.69.97 | 172.23.69.126 | 172.23.69.127 |
+| INTERFAZ | 172.23.69.128 | /27 | 255.255.255.224 | 172.23.69.129 | 172.23.69.158 | 172.23.69.159 |
+| GENERICO1 | 172.23.69.160 | /27 | 255.255.255.224 | 172.23.69.161 | 172.23.69.190 | 172.23.69.191 |
+| GENERICO2 | 172.23.69.192 | /27 | 255.255.255.224 | 172.23.69.193 | 172.23.69.222 | 172.23.69.223 |
+| GENERICO3 | 172.23.69.224 | /27 | 255.255.255.224 | 172.23.69.225 | 172.23.69.254 | 172.23.69.255 |
 
 ---
 > 💡 **Notita:** El truco rápido para el "salto" entre redes en subneteo es `256 - (último octeto de la máscara)`. Por ejemplo, con /26 (máscara .192), el salto es `256 - 192 = 64` → por eso las redes van de 64 en 64 (.0, .64, .128, .192). Te ahorra escribir todo el binario cuando ya tienes práctica.
