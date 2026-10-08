@@ -32,3 +32,15 @@
    * [3.4.4. Ejercicio: 192.168.10.0/24 → /26](03-outbound-ipv4-subneteo.md#ejercicio-192168100-24--26)
    * [3.4.5. Problema 2: 172.16.0.0/22, 10 bits de host](03-outbound-ipv4-subneteo.md#problema-2-172160022-10-bits-de-host)
    * [3.4.6. Ejercicio: 172.23.69.0/24](03-outbound-ipv4-subneteo.md#ejercicio-172236900-24)
+
+[4. Semana 5: VLAN, Trunk e InterVLAN](04-vlan-trunk-intervlan.md)
+
+* [4.1. Protocolo ARP](04-vlan-trunk-intervlan.md#protocolo-arp)
+* [4.2. CLI del switch](04-vlan-trunk-intervlan.md#cli-del-switch)
+* [4.3. VLAN = ID RED](04-vlan-trunk-intervlan.md#vlan--id-red)
+* [4.4. Crear VLANs](04-vlan-trunk-intervlan.md#crear-vlans)
+* [4.5. Puertos para las VLANs](04-vlan-trunk-intervlan.md#puertos-para-las-vlans)
+* [4.6. Trunk o troncal](04-vlan-trunk-intervlan.md#trunk-o-troncal-para-ambos)
+* [4.7. Pasos del profe](04-vlan-trunk-intervlan.md#pasos-del-profe)
+* [4.8. Router on a Stick (dot1Q)](04-vlan-trunk-intervlan.md#protocolo-dot1q--router-on-a-stick)
+* [4.9. Switch de Capa 3 (SVI)](04-vlan-trunk-intervlan.md#método-de-switch-de-capa-3-svi)
