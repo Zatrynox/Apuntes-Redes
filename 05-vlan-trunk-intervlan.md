@@ -75,8 +75,20 @@ Con un solo puerto pasan varias VLANs. `G0/1` o `G0/2` son trunk.
 2. switchport mode trunk
 3. switchport trunk allowed vlan all
 4. end
+
+
+
+```
+# Para el sw3 si quieres hacer los trunk, se hace con este comando
+
 ```
 
+Switch(config)#interface fa0/1
+Switch(config-if)#switchport trunk encapsulation dot1q
+Switch(config-if)#switchport mode trunk
+Switch(config-if)#switchport trunk allowed vlan all
+
+```
 Para ver el trunk:
 
 ```
