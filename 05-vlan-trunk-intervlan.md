@@ -117,6 +117,7 @@ SW L3            -> para lo de Lima
    configure terminal
    interface fa0/0
    no shutdown
+   exit
    ```
 2. Haces en el router `interface fa0/x.m` (x siendo lo que conecta al switch con el router, y m siendo una subdivisión de la red, para que todos salgan de un solo puerto y no se sature).
 3. Pones `encapsulation dot1Q y` (siendo y la VLAN creada).
