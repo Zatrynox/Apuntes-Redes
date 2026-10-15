@@ -34,11 +34,6 @@ Cuando pasas el mouse por lo rojo, sale los puertos que debes prender. Das doble
 
 En **Miscellaneous → Edit Filters**, lo que quitas es: **CDP, DTP y STP**.
 
-## Orden de los apuntes
-
-- Este md (práctica switch/router) es el **1°**.
-- El que empieza con "edge computing" es el **2°**.
-- El que empieza con "outbound" es el **3°**.
 
 ---
 > 💡 **Notita:** CDP, DTP y STP son protocolos de Cisco/switching que normalmente se filtran en Packet Tracer para que la captura de tráfico (por ejemplo con Wireshark) no se llene de "ruido" de administración de la red y puedas ver solo el tráfico que te interesa.
