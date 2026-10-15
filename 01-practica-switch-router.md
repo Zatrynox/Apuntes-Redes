@@ -35,5 +35,5 @@ Cuando pasas el mouse por lo rojo, sale los puertos que debes prender. Das doble
 En **Miscellaneous → Edit Filters**, lo que quitas es: **CDP, DTP y STP**.
 
 
----
+
 > 💡 **Notita:** CDP, DTP y STP son protocolos de Cisco/switching que normalmente se filtran en Packet Tracer para que la captura de tráfico (por ejemplo con Wireshark) no se llene de "ruido" de administración de la red y puedas ver solo el tráfico que te interesa.
